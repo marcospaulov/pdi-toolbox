@@ -98,7 +98,7 @@ npm run dev
    - Clique no botão flutuante com ícone de gráfico
    - Para filtros de equalização, você verá tanto o histograma original quanto o equalizado
 
-## 🤝 Contribuindo
+## 🤝 Contribuidores
 
 1. Marcos Paulo (https://github.com/MarcosPauloV)
 2. Gabriel (https://github.com/Gabrielsatos)
