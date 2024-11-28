@@ -11,24 +11,13 @@ export default function Logaritmo(matrix: number[][], filterSize: number = 3): n
     for (let j = 0; j < numCols; j++) {
       let logValue = 0;
 
-      // Aplica a transformação logarítmica na vizinhança com padding zero
-      for (let m = -pad; m <= pad; m++) {
-        for (let n = -pad; n <= pad; n++) {
-          const row = i + m;
-          const col = j + n;
-
-          // Verifica se o índice está dentro dos limites; caso contrário, aplica padding zero
-          if (row >= 0 && row < numRows && col >= 0 && col < numCols) {
-            const pixelOriginal = matrix[row][col];
-            logValue = c * Math.log(1 + pixelOriginal);
-          }
-        }
-      }
-
-      // Clamping do valor para a faixa [0, 255]
+          const pixelOriginal = matrix[i][j];
+          logValue = c * Math.log(1 + pixelOriginal);
+          
+      // Clamping do valor para a faixa
       result[i][j] = Math.min(255, Math.max(0, logValue));
-    }
   }
+}
 
   return result;
 }

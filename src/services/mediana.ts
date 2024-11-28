@@ -20,7 +20,7 @@ export default function Mediana(matrix: number[][], filterSize: number = 3): num
           const row = i + m;
           const col = j + n;
 
-          // Se estiver fora dos limites, adiciona 0 (padding)
+          // Se estiver fora dos limites, adiciona 0 
           if (row < 0 || row >= numRows || col < 0 || col >= numCols) {
             neighborhood.push(0);
           } else {

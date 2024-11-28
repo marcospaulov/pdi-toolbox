@@ -9,6 +9,7 @@ interface CanvasProps {
 export default function Canvas({ matrix, width, height }: CanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
+  // Atualiza o canvas quando a matriz ou as dimensões mudarem
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas || !matrix.length) return
@@ -16,11 +17,11 @@ export default function Canvas({ matrix, width, height }: CanvasProps) {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    // Criar um ImageData a partir da matriz
+    // Cria a imagem a partir da matriz
     const imageData = ctx.createImageData(width, height)
     const data = imageData.data
 
-    // Preencher o ImageData com os valores da matriz
+    // Preenche a imagem com os valores da matriz
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const pixelIndex = (y * width + x) * 4
@@ -43,7 +44,7 @@ export default function Canvas({ matrix, width, height }: CanvasProps) {
       ref={canvasRef}
       width={width}
       height={height}
-      className="border border-gray-300 rounded-lg"
+      className="rounded-lg border border-gray-300"
     />
   )
 }

@@ -10,14 +10,15 @@ Uma aplicação web para processamento digital de imagens desenvolvida com React
 ### Filtros por Desenvolvedor
 
 #### Luciano
-- **Função Ponta de Prova**: NC e coordenada do pixel apontado
 - **Filtros de Logaritmo**: Transformação logarítmica (parâmetro: constante)
 - **Filtros de Logaritmo Inverso**: Transformação logarítmica inversa (parâmetro: constante)
-- **Ampliação com Interpolação por Replicação**: Nearest Neighbor (512x512 e 1024x1024)
 - **Filtro da Média**: Suavização por média (parâmetro: tamanho da janela)
 - **Operadores High Boost**: Realce de bordas (parâmetros: constante, tamanho da janela)
-
+- **Ampliação com Interpolação por Replicação**: Nearest Neighbor (512x512 e 1024x1024)
+- **Negativo**: Inverte os valores da matriz (255 - valor)
+- **Ampliação com Interpolação por Replicação**: Nearest Neighbor (512x512 e 1024x1024)
 #### Gabriel
+
 - **Ampliação com Interpolação Bilinear**: 512x512 e 1024x1024
 - **Rotações**:
   - Rotação 90° horário
@@ -48,7 +49,6 @@ Uma aplicação web para processamento digital de imagens desenvolvida com React
 - **Mistura de Imagens**:
   - Soma de duas imagens com porcentagens ajustáveis
 - **Outros Filtros**:
-  - Negativo
   - Laplaciano
 
 ## 🛠️ Tecnologias Utilizadas
@@ -91,7 +91,7 @@ npm run dev
 3. **Mistura de Imagens**:
    - Selecione o filtro "soma"
    - Faça upload da segunda imagem
-   - Ajuste os pesos de cada imagem usando os sliders
+   - Ajuste a porcentagem de cada imagem usando os sliders
    - Clique em "Misturar Imagens"
 
 4. **Visualização de Histograma**:
@@ -100,21 +100,6 @@ npm run dev
 
 ## 🤝 Contribuindo
 
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
-
-## ✨ Funcionalidades Futuras
-
-- [ ] Suporte para imagens coloridas
-- [ ] Mais filtros e transformações
-- [ ] Histórico de operações
-- [ ] Desfazer/Refazer
-- [ ] Exportação em diferentes formatos
-- [ ] Salvamento de presets de filtros
+1. Marcos Paulo (https://github.com/MarcosPauloV)
+2. Gabriel (https://github.com/Gabrielsatos)
+3. Luciano (https://github.com/LucianoCarvalhoJunior)

@@ -51,31 +51,56 @@ function App() {
   const [filterParams, setFilterParams] = useState<FilterParams>({})
 
   const filterConfig = {
+    expansao: {
+      params: [
+        { name: 'a', label: 'Fator A', defaultValue: 2 },
+        { name: 'b', label: 'Fator B', defaultValue: 1 }
+      ]
+    },
+    compressao: {
+      params: [
+        { name: 'a', label: 'Fator A', defaultValue: 2 },
+        { name: 'b', label: 'Fator B', defaultValue: 1 }
+      ]
+    },
     potencia: {
-      params: [{ name: 'gamma', label: 'Gamma', defaultValue: 1.0 }]
-    },
-    logaritmo: {
-      params: [{ name: 'constante', label: 'Constante', defaultValue: 1.0 }]
-    },
-    logaritmoInverso: {
-      params: [{ name: 'constante', label: 'Constante', defaultValue: 1.0 }]
+      params: [
+        { name: 'gamma', label: 'Gamma', defaultValue: 1.2 }
+      ]
     },
     raiz: {
-      params: [{ name: 'gamma', label: 'Gamma', defaultValue: 1.2 }]
+      params: [
+        { name: 'gamma', label: 'Gamma', defaultValue: 1.2 }
+      ]
     },
     media: {
-      params: [{ name: 'tamanhoJanela', label: 'Tamanho da Janela', defaultValue: 3 }]
+      params: [
+        { name: 'tamanhoJanela', label: 'Mascara', defaultValue: 3 }
+      ]
     },
     mediana: {
-      params: [{ name: 'tamanhoJanela', label: 'Tamanho da Janela', defaultValue: 3 }]
+      params: [
+        { name: 'tamanhoJanela', label: 'Mascara', defaultValue: 3 }
+      ]
     },
     moda: {
-      params: [{ name: 'tamanhoJanela', label: 'Tamanho da Janela', defaultValue: 3 }]
+      params: [
+        { name: 'tamanhoJanela', label: 'Mascara', defaultValue: 3 }
+      ]
+    },
+    max: {
+      params: [
+        { name: 'tamanhoJanela', label: 'Mascara', defaultValue: 3 }
+      ]
+    },
+    min: {
+      params: [
+        { name: 'tamanhoJanela', label: 'Mascara', defaultValue: 3 }
+      ]
     },
     highboost: {
       params: [
-        { name: 'constante', label: 'Constante', defaultValue: 1.0 },
-        { name: 'tamanhoJanela', label: 'Tamanho da Janela', defaultValue: 3 }
+        { name: 'ampliacao', label: 'Fator de Ampliação', defaultValue: 5 }
       ]
     }
   }
@@ -145,11 +170,11 @@ function App() {
 
       // Operações Matemáticas
       case 'logaritmo':
-        const matrixLog = logaritmo(imageMatrix, filterParams.constante)
+        const matrixLog = logaritmo(imageMatrix, filterParams.c)
         setImageMatrix(matrixLog)
         break
       case 'logaritmoInverso':
-        const matrixLogInv = logaritmoInverso(imageMatrix, filterParams.constante)
+        const matrixLogInv = logaritmoInverso(imageMatrix, filterParams.c)
         setImageMatrix(matrixLogInv)
         break
       case 'potencia':
@@ -175,11 +200,11 @@ function App() {
         setImageMatrix(matrixModa)
         break
       case 'max':
-        const matrixMax = max(imageMatrix)
+        const matrixMax = max(imageMatrix, filterParams.tamanhoJanela)
         setImageMatrix(matrixMax)
         break
       case 'min':
-        const matrixMin = min(imageMatrix)
+        const matrixMin = min(imageMatrix, filterParams.tamanhoJanela)
         setImageMatrix(matrixMin)
         break
 
@@ -190,7 +215,7 @@ function App() {
         setImageMatrix(equalizedMatrix)
         break
       case 'highboost':
-        const matrixHB = highboost(imageMatrix, filterParams.constante, filterParams.tamanhoJanela)
+        const matrixHB = highboost(imageMatrix, filterParams.ampliacao)
         setImageMatrix(matrixHB)
         break
       case 'laplaciano':
@@ -391,7 +416,7 @@ function App() {
 
       <button
         onClick={() => setShowHistogram(true)}
-        className="fixed bottom-4 right-4 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors"
+        className="fixed right-4 bottom-4 p-3 text-white bg-blue-600 rounded-full shadow-lg transition-colors hover:bg-blue-700"
         title="Mostrar Histograma"
       >
         <BarChart className="w-6 h-6" />
@@ -401,17 +426,18 @@ function App() {
         isOpen={showHistogram}
         onClose={() => setShowHistogram(false)}
         title="Histograma da Imagem"
+        maxWidth="2xl"
       >
         {imageMatrix.length > 0 ? (
-          <div className="p-4 space-y-4">
+          <div className="p-4">
             {filterName === 'equalizacao' && originalMatrix.length > 0 && (
-              <div>
-                <h3 className="text-lg font-semibold mb-2">Histograma Original</h3>
+              <div className="mb-8">
+                <h3 className="mb-2 text-lg font-semibold">Histograma Original</h3>
                 <Histogram matrix={originalMatrix} />
               </div>
             )}
             <div>
-              <h3 className="text-lg font-semibold mb-2">
+              <h3 className="mb-2 text-lg font-semibold">
                 {filterName === 'equalizacao' ? 'Histograma Equalizado' : 'Histograma'}
               </h3>
               <Histogram matrix={imageMatrix} />
@@ -444,7 +470,7 @@ function App() {
           <div className="space-y-4">
             <div>
               <label className="block mb-2 text-sm font-medium text-slate-700">
-                Peso da Primeira Imagem: {firstImagePercentage}%
+                Porcentagem da primeira imagem: {firstImagePercentage}%
               </label>
               <input
                 type="range"
@@ -458,7 +484,7 @@ function App() {
 
             <div>
               <label className="block mb-2 text-sm font-medium text-slate-700">
-                Peso da Segunda Imagem: {secondImagePercentage}%
+                Porcentagem da segunda imagem: {secondImagePercentage}%
               </label>
               <input
                 type="range"
@@ -475,7 +501,7 @@ function App() {
             <div className="mt-4">
               <button
                 onClick={handleMixImages}
-                className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 w-full text-white bg-blue-600 rounded-lg transition-colors hover:bg-blue-700"
               >
                 Misturar Imagens
               </button>
@@ -500,14 +526,14 @@ function App() {
                 step="0.1"
                 value={filterParams[param.name]}
                 onChange={(e) => handleParamChange(param.name, e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           ))}
           
           <button
             onClick={() => applyFilter(filterName)}
-            className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 w-full text-white bg-blue-600 rounded-lg transition-colors hover:bg-blue-700"
           >
             Aplicar Filtro
           </button>

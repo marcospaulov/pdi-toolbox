@@ -32,7 +32,7 @@ export default function HighBoost(matrix: number[][], filterSize: number = 3, am
       // Aplica a fórmula do filtro High Boost
       const highBoostValue = originalValue + (ampliacao - 1) * (originalValue - smoothedValue);
 
-      // Limita o valor ao intervalo [0, 255]
+      // Limita o valor ao intervalo 
       result[i][j] = Math.min(255, Math.max(0, highBoostValue));
     }
   }

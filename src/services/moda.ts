@@ -9,7 +9,7 @@ function Moda(matriz: number[][], tamanhoFiltro: number = 3): number[][] {
     Array(colunas).fill(0)
   );
 
-  // Calcula o raio do filtro (quantos pixels para cada lado)
+  // Calcula o raio do filtro 
   const raio = Math.floor(tamanhoFiltro / 2);
 
   for (let i = 0; i < linhas; i++) {
@@ -22,11 +22,13 @@ function Moda(matriz: number[][], tamanhoFiltro: number = 3): number[][] {
           const nj = j + dj;
           if (ni >= 0 && ni < linhas && nj >= 0 && nj < colunas) {
             vizinhanca.push(matriz[ni][nj]);
+          } else {
+            vizinhanca.push(0);
           }
         }
       }
 
-      // Encontrar o valor mais frequente (moda)
+      // Encontrar o valor mais frequente moda
       const frequencia = new Map<number, number>();
       let maxFreq = 0;
       let moda = vizinhanca[0];
@@ -39,7 +41,7 @@ function Moda(matriz: number[][], tamanhoFiltro: number = 3): number[][] {
           maxFreq = freq;
           moda = valor;
         } else if (freq === maxFreq && valor < moda) {
-          // Em caso de empate, escolhe o menor valor
+          // Em caso de empate escolhe o menor valor
           moda = valor;
         }
       }

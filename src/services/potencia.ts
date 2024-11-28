@@ -4,6 +4,7 @@ export default function Potencia(
 ): number[][] {
   const matrizPotencia: number[][] = [];
   let pixelCalculado: number;
+  
   for (let i = 0; i < matriz.length; i++) {
     matrizPotencia[i] = [];
     for (let j = 0; j < matriz[i].length; j++) {

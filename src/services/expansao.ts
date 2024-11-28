@@ -1,10 +1,8 @@
-export default function Expansao(matrix: number[][]): number[][] {
+export default function Expansao(matrix: number[][], a: number = 2, b: number = 1): number[][] {
   const n = matrix.length;
   const filteredMatrix: number[][] = Array.from({ length: n }, () =>
     Array(n).fill(0)
   );
-  const a = 2;
-  const b = 1;
 
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < n; j++) {

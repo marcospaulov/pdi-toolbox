@@ -47,24 +47,21 @@ export function Modal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
       <div
-        className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
-        onClick={onClose}
-      />
-      <div
-        className={`relative w-full ${maxWidthClasses[maxWidth]} transform rounded-lg bg-white p-6 shadow-xl transition-all`}
+        className={`relative w-full ${maxWidthClasses[maxWidth]} bg-white rounded-lg shadow-xl`}
       >
-        <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center justify-between p-4 border-b">
           {title && <h2 className="text-xl font-semibold">{title}</h2>}
           <button
             onClick={onClose}
-            className="ml-auto rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-500"
+            className="p-1 text-gray-500 rounded-lg hover:bg-gray-100"
           >
-            <X className="h-5 w-5" />
+            <X className="w-6 h-6" />
           </button>
         </div>
-        <div className="relative max-h-[calc(100vh-200px)] overflow-y-auto">
+
+        <div className="max-h-[calc(100vh-12rem)] overflow-y-auto">
           {children}
         </div>
       </div>

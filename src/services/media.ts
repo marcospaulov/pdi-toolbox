@@ -24,8 +24,8 @@ export default function Media(matrix: number[][], filterSize: number = 3): numbe
           // Verifica se o pixel está dentro dos limites da imagem
           if (row >= 0 && row < numRows && col >= 0 && col < numCols) {
             sum += matrix[row][col];
-            count++;
           }
+          count++;
         }
       }
 

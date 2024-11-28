@@ -6,7 +6,7 @@ export default function Equalizacao(image: number[][]): number[][] {
     const totalPixels = rows * cols;
 
     // Calcula o histograma da imagem
-    // Conta a frequência de cada nível de intensidade (0-255)
+    // Conta a frequência de cada nível de intensidade 
     const histogram = new Array(256).fill(0);
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
@@ -14,7 +14,7 @@ export default function Equalizacao(image: number[][]): number[][] {
       }
     }
 
-    // Calcula a função de distribuição cumulativa (CDF)
+    // Calcula a função de distribuição cumulativa 
     // Soma acumulada das frequências do histograma
     const cdf = new Array(256).fill(0);
     cdf[0] = histogram[0];
@@ -22,8 +22,8 @@ export default function Equalizacao(image: number[][]): number[][] {
       cdf[i] = cdf[i - 1] + histogram[i];
     }
 
-    // Normaliza o CDF para o intervalo [0, 255]
-    // Encontra o primeiro valor não-zero no CDF para normalização
+    // Normaliza o CDF para o intervalo 
+    // Encontra o primeiro valor não-zero para normalização
     const cdfMin = cdf.find(x => x > 0) || 0;
     const normalizedCdf = cdf.map(x => 
       Math.round(((x - cdfMin) / (totalPixels - cdfMin)) * 255)
