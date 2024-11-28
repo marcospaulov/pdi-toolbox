@@ -10,13 +10,20 @@ Uma aplicação web para processamento digital de imagens desenvolvida com React
 ### Filtros por Desenvolvedor
 
 #### Luciano
-- **Filtros de Logaritmo**: Transformação logarítmica (parâmetro: constante)
-- **Filtros de Logaritmo Inverso**: Transformação logarítmica inversa (parâmetro: constante)
-- **Filtro da Média**: Suavização por média (parâmetro: tamanho da janela)
-- **Operadores High Boost**: Realce de bordas (parâmetros: constante, tamanho da janela)
-- **Ampliação com Interpolação por Replicação**: Nearest Neighbor (512x512 e 1024x1024)
-- **Negativo**: Inverte os valores da matriz (255 - valor)
-- **Ampliação com Interpolação por Replicação**: Nearest Neighbor (512x512 e 1024x1024)
+- **Filtros de Logaritmo**: 
+  - Transformação logarítmica (parâmetro: constante)
+- **Filtros de Logaritmo Inverso**: 
+  - Transformação logarítmica inversa (parâmetro: constante)
+- **Filtro da Média**: 
+  - Suavização por média (parâmetro: tamanho da janela)
+- **Operadores High Boost**: 
+  - Realce de bordas (parâmetros: constante, tamanho da janela)
+- **Ampliação com Interpolação por Replicação**: 
+  - Nearest Neighbor (512x512 e 1024x1024)
+- **Negativo**: 
+  - Inverte os valores da matriz (255 - valor)
+- **Ampliação com Interpolação por Replicação**:
+  - Nearest Neighbor (512x512 e 1024x1024)
 #### Gabriel
 
 - **Ampliação com Interpolação Bilinear**: 512x512 e 1024x1024

@@ -22,7 +22,7 @@ export default function Laplaciano(image: number[][]): number[][] {
         // Percorrer a matriz Laplaciana
         for (let ki = 0; ki < laplacianMatrix.length; ki++) {
           for (let kj = 0; kj < laplacianMatrix[0].length; kj++) {
-            // Calcular os índices relativos à matriz original
+            // Calcular os indices relativos a matriz original
             const ni = i + ki - 1; // Subtrai 1 para centralizar o kernel
             const nj = j + kj - 1;
 
