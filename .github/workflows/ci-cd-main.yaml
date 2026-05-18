@@ -12,6 +12,7 @@ env:
   NODE_VERSION: '20'
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
 
 concurrency:
   group: ci-cd-main-${{ github.ref }}
@@ -78,7 +79,7 @@ jobs:
   # Job 3: Deploy na Vercel
   # ──────────────────────────────────────────────
   deploy:
-    name: 🚀 Deploy Frontend
+    name: 🚀 Deploy
     needs: [quality, build]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
