@@ -31,8 +31,6 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -63,8 +61,6 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -117,7 +113,7 @@ jobs:
           echo "| **Build Check** | ${{ needs.build.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| **Frontend Deploy** | ${{ needs.deploy.result }} |" >> $GITHUB_STEP_SUMMARY
 
-          if [[ "${{ needs.quality.result }}" == "success" && "${{ needs.build.result }}" == "success" && "${{ needs.deploy-frontend.result }}" == "success" ]]; then
+          if [[ "${{ needs.quality.result }}" == "success" && "${{ needs.build.result }}" == "success" && "${{ needs.deploy.result }}" == "success" ]]; then
             echo "#### :rocket: Success! All deployments completed successfully." >> $GITHUB_STEP_SUMMARY
           else
             echo "#### :warning: Failure! Please check the logs." >> $GITHUB_STEP_SUMMARY
