@@ -1,0 +1,124 @@
+name: CI/CD - Main
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  PNPM_VERSION: '9'
+  NODE_VERSION: '20'
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+concurrency:
+  group: ci-cd-main-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ──────────────────────────────────────────────
+  # Job 1: Qualidade (Lint + Type Check)
+  # ──────────────────────────────────────────────
+  quality:
+    name: 🔍 Quality Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Type check
+        run: pnpm type-check
+
+  # ──────────────────────────────────────────────
+  # Job 2: Build
+  # ──────────────────────────────────────────────
+  build:
+    name: 🏗️ Build Check
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+  # ──────────────────────────────────────────────
+  # Job 3: Deploy na Vercel
+  # ──────────────────────────────────────────────
+  deploy:
+    name: 🚀 Deploy Frontend
+    needs: [quality, build]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Project Settings
+        run: vercel pull --yes --environment=production --token=${{ env.VERCEL_TOKEN }}
+
+      - name: Deploy Frontend to Vercel (Cloud Build)
+        run: vercel deploy --prod --token=${{ env.VERCEL_TOKEN }} --yes
+
+  # ──────────────────────────────────────────────
+  # Job 4: Notificação de Status
+  # ──────────────────────────────────────────────
+  notification:
+    name: 📢 Notify Status
+    needs: [quality, build, deploy]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Build Status Summary
+        run: |
+          echo "### :clipboard: CI/CD Status Summary" >> $GITHUB_STEP_SUMMARY
+          echo "| Step | Result |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Quality Check** | ${{ needs.quality.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Build Check** | ${{ needs.build.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Frontend Deploy** | ${{ needs.deploy.result }} |" >> $GITHUB_STEP_SUMMARY
+
+          if [[ "${{ needs.quality.result }}" == "success" && "${{ needs.build.result }}" == "success" && "${{ needs.deploy-frontend.result }}" == "success" ]]; then
+            echo "#### :rocket: Success! All deployments completed successfully." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "#### :warning: Failure! Please check the logs." >> $GITHUB_STEP_SUMMARY
+          fi
