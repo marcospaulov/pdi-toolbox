@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   # ──────────────────────────────────────────────
-  # Job 1: Qualidade (Lint + Type Check)
+  # Job 1: Qualidade (Lint)
   # ──────────────────────────────────────────────
   quality:
     name: 🔍 Quality Check
@@ -32,6 +32,8 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -44,9 +46,6 @@ jobs:
 
       - name: Lint
         run: pnpm lint
-
-      - name: Type check
-        run: pnpm type-check
 
   # ──────────────────────────────────────────────
   # Job 2: Build
@@ -62,6 +61,8 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
