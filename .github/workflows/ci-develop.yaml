@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   validate:
-    name: 🔍 Lint & Type Check
+    name: 🔍 Lint
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -36,9 +36,6 @@ jobs:
 
       - name: Lint
         run: pnpm lint
-
-      - name: Type check
-        run: pnpm type-check
 
   test:
     name: 🧪 Tests

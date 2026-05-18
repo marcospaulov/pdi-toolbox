@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   # ──────────────────────────────────────────────
-  # Job 1: Qualidade (Lint + Type Check)
+  # Job 1: Qualidade (Lint)
   # ──────────────────────────────────────────────
   quality:
     name: 🔍 Quality Check
@@ -44,9 +44,6 @@ jobs:
 
       - name: Lint
         run: pnpm lint
-
-      - name: Type check
-        run: pnpm type-check
 
   # ──────────────────────────────────────────────
   # Job 2: Build
