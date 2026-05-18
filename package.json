@@ -4,12 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prepare": "lefthook install",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "biome check",
-    "format": "biome format --write",
-    "test": "vitest"
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "test": "vitest run --passWithNoTests",
+    "ci": "pnpm lint && pnpm test && pnpm build"
   },
   "dependencies": {
     "lucide-react": "^1.16.0",
@@ -26,10 +28,17 @@
     "@types/react": "19.2.14",
     "@vitejs/plugin-react": "^6.0.2",
     "jsdom": "^29.1.1",
+    "lefthook": "^2.1.6",
+    "lint-staged": "^17.0.5",
     "postcss": "^8.5.14",
     "tailwindcss": "^4.3.0",
     "typescript": "~5.6.2",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.1.6"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json}": [
+      "biome check --write"
+    ]
   }
 }

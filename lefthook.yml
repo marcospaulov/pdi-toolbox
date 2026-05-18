@@ -1,0 +1,18 @@
+pre-commit:
+  parallel: true
+
+  commands:
+    biome:
+      run: pnpm lint-staged
+
+pre-push:
+  commands:
+    lint:
+      run: pnpm lint
+
+    test:
+      run: pnpm test
+
+    build:
+      run: pnpm build
+
